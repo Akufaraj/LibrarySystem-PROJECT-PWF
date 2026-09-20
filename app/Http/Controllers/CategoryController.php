@@ -8,6 +8,14 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return view('categories.index');
+        $categories = [
+            'Fiksi',
+            'Sejarah',
+            'Pengembangan Diri',
+            'Teknologi',
+            'Sains'
+        ];
+
+        return view('categories.index', compact('categories'));
     }
 }

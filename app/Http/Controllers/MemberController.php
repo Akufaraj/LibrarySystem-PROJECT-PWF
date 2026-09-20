@@ -8,6 +8,14 @@ class MemberController extends Controller
 {
     public function index()
     {
-        return view('members.index');
+        $members = [
+            'Faraj',
+            'Muafa',
+            'Dhamir',
+            'Parajj',
+            'aguss',
+        ];
+
+        return view('members.index', compact('members'));
     }
 }
