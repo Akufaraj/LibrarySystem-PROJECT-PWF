@@ -9,14 +9,11 @@
     @if(count($books) > 0)
         <ul>
             @foreach($books as $book)
-                <li>
-                    <strong>{{ $book['judul'] }}</strong><br>
-                    Penulis: {{ $book['penulis'] }}<br>
-                    Tahun: {{ $book['tahun_terbit'] }}<br>
-                    <a href="/books/{{ $book['id'] }}">Lihat Detail</a>
-                </li>
-                <br>
-            @endforeach
+ <h3>{{ $book->title }}</h3>
+ <p>Penulis: {{ $book->author }}</p>
+ <p>Tahun: {{ $book->year }}</p>
+ <p>Stok: {{ $book->stock }}</p>
+@endforeach
         </ul>
     @else
         <p>Tidak ada data buku.</p>
