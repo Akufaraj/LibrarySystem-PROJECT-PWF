@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -16,26 +15,56 @@
         </ul>
     @endif
 
-    
-<form action="{{ route('books.store') }}" method="POST">
-    @csrf
+    <form action="{{ route('books.store') }}" method="POST">
+        @csrf
 
-    <label>Judul Buku</label>
-    <input type="text" name="title" required>
+        <label>Judul Buku</label>
+        <input type="text" name="title" value="{{ old('title') }}" required>
 
-    <label>Penulis</label>
-    <input type="text" name="author" required>
+        <br><br>
 
-    <label>Tahun Terbit</label>
-    <input type="number" name="year" required>
+        <label>Penulis</label>
+        <input type="text" name="author" value="{{ old('author') }}" required>
 
-    <label>Stok</label>
-    <input type="number" name="stock" min="0" required>
+        <br><br>
 
-    <button type="submit">Simpan</button>
-</form>
+        <label>Tahun Terbit</label>
+        <input type="number" name="year" value="{{ old('year') }}" required>
 
-<a href="{{ route('books.index') }}">Kembali ke Daftar</a>
+        <br><br>
 
+        <label>Stok</label>
+        <input type="number" name="stock" min="0" value="{{ old('stock') }}" required>
+
+        <br><br>
+
+        <!-- Pilihan Kategori -->
+        <label for="category_id">Kategori</label>
+
+        <select name="category_id" id="category_id" required>
+            <option value="">Pilih Kategori</option>
+
+            @foreach ($categories as $category)
+                <option
+                    value="{{ $category->id }}"
+                    @selected(old('category_id') == $category->id)
+                >
+                    {{ $category->name }}
+                </option>
+            @endforeach
+        </select>
+
+        @error('category_id')
+            <p>{{ $message }}</p>
+        @enderror
+
+        <br><br>
+
+        <button type="submit">Simpan</button>
+    </form>
+
+    <br>
+
+    <a href="{{ route('books.index') }}">Kembali ke Daftar</a>
 </body>
 </html>

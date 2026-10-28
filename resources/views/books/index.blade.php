@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('title', 'Daftar Buku')
@@ -20,6 +19,7 @@
                 <th>Penulis</th>
                 <th>Tahun</th>
                 <th>Stok</th>
+                <th>Kategori</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -32,6 +32,11 @@
                     <td>{{ $book->author }}</td>
                     <td>{{ $book->year }}</td>
                     <td>{{ $book->stock }}</td>
+
+                    <td>
+                        {{ $book->category?->name ?? 'Belum ada kategori' }}
+                    </td>
+
                     <td>
                         <a href="{{ route('books.show', $book) }}">
                             Detail
@@ -60,7 +65,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6">Belum ada data buku.</td>
+                    <td colspan="7">Belum ada data buku.</td>
                 </tr>
             @endforelse
         </tbody>

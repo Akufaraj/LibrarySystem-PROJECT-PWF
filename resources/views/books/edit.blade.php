@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -38,8 +37,28 @@
                value="{{ old('stock', $book->stock) }}"
                min="0" required><br><br>
 
+        <!-- Pilihan Kategori -->
+        <label for="category_id">Kategori</label><br>
+
+        <select name="category_id" id="category_id" required>
+            <option value="">Pilih Kategori</option>
+
+            @foreach ($categories as $category)
+                <option
+                    value="{{ $category->id }}"
+                    @selected(old('category_id', $book->category_id) == $category->id)
+                >
+                    {{ $category->name }}
+                </option>
+            @endforeach
+        </select>
+
+        <br><br>
+
         <button type="submit">Update</button>
     </form>
+
+    <br>
 
     <a href="{{ route('books.index') }}">Kembali</a>
 </body>
