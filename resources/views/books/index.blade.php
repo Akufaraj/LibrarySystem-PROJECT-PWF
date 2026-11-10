@@ -6,16 +6,17 @@
     <h2>Daftar Buku</h2>
 
     <form action="{{ route('logout') }}" method="POST">
-    @csrf
-
-    <button type="submit">Logout</button>
-</form>
+        @csrf
+        <button type="submit">Logout</button>
+    </form>
 
     @if (session('success'))
         <p>{{ session('success') }}</p>
     @endif
 
-    <a href="{{ route('books.create') }}">Tambah Buku</a>
+    @can('create', App\Models\Book::class)
+        <a href="{{ route('books.create') }}">Tambah Buku</a>
+    @endcan
 
     <table border="1" cellpadding="10">
         <thead>
@@ -44,29 +45,35 @@
                     </td>
 
                     <td>
-                        <a href="{{ route('books.show', $book) }}">
-                            Detail
-                        </a>
+                        @can('view', $book)
+                            <a href="{{ route('books.show', $book) }}">
+                                Detail
+                            </a>
+                        @endcan
 
-                        <a href="{{ route('books.edit', $book) }}">
-                            Edit
-                        </a>
+                        @can('update', $book)
+                            <a href="{{ route('books.edit', $book) }}">
+                                Edit
+                            </a>
+                        @endcan
 
-                        <form
-                            action="{{ route('books.destroy', $book) }}"
-                            method="POST"
-                            style="display: inline;"
-                        >
-                            @csrf
-                            @method('DELETE')
-
-                            <button
-                                type="submit"
-                                onclick="return confirm('Yakin ingin menghapus buku ini?')"
+                        @can('delete', $book)
+                            <form
+                                action="{{ route('books.destroy', $book) }}"
+                                method="POST"
+                                style="display: inline;"
                             >
-                                Hapus
-                            </button>
-                        </form>
+                                @csrf
+                                @method('DELETE')
+
+                                <button
+                                    type="submit"
+                                    onclick="return confirm('Yakin ingin menghapus buku ini?')"
+                                >
+                                    Hapus
+                                </button>
+                            </form>
+                        @endcan
                     </td>
                 </tr>
             @empty
